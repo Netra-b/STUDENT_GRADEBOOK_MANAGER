@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Gradebook Manager | Placements Cell</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <div class="glass-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h2>GradeBook</h2>
+            </div>
+            <nav>
+                <button class="nav-btn active" onclick="showSection('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</button>
+                <button class="nav-btn" onclick="showSection('insert')"><i class="fa-solid fa-user-plus"></i> Insert Student</button>
+                <button class="nav-btn" onclick="showSection('search')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                <button class="nav-btn" onclick="showSection('update')"><i class="fa-solid fa-user-pen"></i> Update Info</button>
+                <button class="nav-btn" onclick="showSection('delete')"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                <button class="nav-btn" onclick="showSection('settings')"><i class="fa-solid fa-gear"></i> Settings</button>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
+                <div class="info">
+                    <p>Admin User</p>
+                    <span>Placement Cell</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <!-- DASHBOARD SECTION -->
+            <section id="dashboard" class="active-section">
+                <header>
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome back, Admin. Here is the latest student performance data.</p>
+                </header>
+
+                <div class="stats-grid">
+                    <div class="card stat-card">
+                        <div class="icon-box blue"><i class="fa-solid fa-users"></i></div>
+                        <div>
+                            <h3>Total Students</h3>
+                            <p class="stat-num">1,245</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="icon-box green"><i class="fa-solid fa-check-circle"></i></div>
+                        <div>
+                            <h3>Eligible</h3>
+                            <p class="stat-num">850</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="icon-box red"><i class="fa-solid fa-circle-exclamation"></i></div>
+                        <div>
+                            <h3>Backlogs</h3>
+                            <p class="stat-num">120</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="icon-box purple"><i class="fa-solid fa-chart-line"></i></div>
+                        <div>
+                            <h3>Avg CGPA</h3>
+                            <p class="stat-num">8.4</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container card">
+                    <div class="table-header">
+                        <h3>Recent Admissions</h3>
+                        <button class="btn-secondary">View All</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>USN</th>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>CGPA</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Sample Data -->
+                            <tr>
+                                <td>101</td>
+                                <td>Alice Smith</td>
+                                <td>CSE</td>
+                                <td>8.5</td>
+                                <td><span class="status eligible">Eligible</span></td>
+                            </tr>
+                            <tr>
+                                <td>105</td>
+                                <td>Bob Johnson</td>
+                                <td>ISE</td>
+                                <td>6.8</td>
+                                <td><span class="status not-eligible">Not Eligible</span></td>
+                            </tr>
+                             <tr>
+                                <td>102</td>
+                                <td>Charlie Brown</td>
+                                <td>ECE</td>
+                                <td>9.0</td>
+                                <td><span class="status eligible">Eligible</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- INSERT SECTION -->
+            <section id="insert">
+                <header>
+                    <h1>Insert New Student</h1>
+                    <p>Add a new student record to the BST database.</p>
+                </header>
+                <div class="card form-card">
+                    <form onsubmit="handleInsert(event)">
+                        <div class="form-group">
+                            <label>USN</label>
+                            <input type="number" placeholder="Enter USN" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter Student Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Branch</label>
+                            <select>
+                                <option>CSE</option>
+                                <option>ISE</option>
+                                <option>ECE</option>
+                                <option>ME</option>
+                                <option>EEE</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>CGPA</label>
+                                <input type="number" step="0.01" placeholder="0.0 - 10.0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Backlogs</label>
+                                <input type="number" placeholder="0" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Add Student</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- SEARCH SECTION -->
+            <section id="search">
+                <header>
+                    <h1>Search Student</h1>
+                    <p>Find student details by their Unique Student Number.</p>
+                </header>
+                <div class="search-box card">
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="number" id="searchInput" placeholder="Enter USN to search...">
+                    </div>
+                    <button class="btn-primary" onclick="handleSearch()">Search</button>
+                </div>
+                
+                <div id="searchResult" class="card result-card hidden">
+                    <h3>Student Details</h3>
+                    <div class="detail-row"><span>Name:</span> <strong id="resName">Alice Smith</strong></div>
+                    <div class="detail-row"><span>USN:</span> <strong id="resUsn">101</strong></div>
+                    <div class="detail-row"><span>Branch:</span> <strong id="resBranch">CSE</strong></div>
+                    <div class="detail-row"><span>CGPA:</span> <strong id="resCgpa">8.5</strong></div>
+                    <div class="detail-row"><span>Status:</span> <span id="resStatus" class="status eligible">Eligible</span></div>
+                </div>
+            </section>
+            
+             <!-- UPDATE SECTION -->
+            <section id="update">
+                <header>
+                    <h1>Update Student</h1>
+                    <p>Modify existing student records.</p>
+                </header>
+                 <div class="search-box card">
+                    <input type="number" placeholder="Enter USN to update..." style="flex:1; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: white;">
+                    <button class="btn-secondary">Load Details</button>
+                </div>
+                <br>
+                <div class="card form-card">
+                    <form onsubmit="handleUpdate(event)">
+                        <div class="form-group">
+                            <label>New Branch</label>
+                            <select>
+                                <option>CSE</option>
+                                <option>ISE</option>
+                                <option>ECE</option>
+                            </select>
+                        </div>
+                         <div class="form-row">
+                            <div class="form-group">
+                                <label>New CGPA</label>
+                                <input type="number" step="0.01" placeholder="8.5">
+                            </div>
+                            <div class="form-group">
+                                <label>New Backlogs</label>
+                                <input type="number" placeholder="0">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Update Record</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- DELETE SECTION -->
+            <section id="delete">
+                 <header>
+                    <h1>Delete Student</h1>
+                    <p class="danger-text">Warning: This action cannot be undone.</p>
+                </header>
+                <div class="card form-card danger-zone">
+                    <h3>Remove Student Record</h3>
+                    <p>Please enter the USN of the student you wish to remove from the system.</p>
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="number" placeholder="Enter USN..." style="background: rgba(255,0,0,0.1); border-color: rgba(255,100,100,0.3);">
+                    </div>
+                    <button class="btn-danger" onclick="alert('Student deleted successfully!')">Delete Permanently</button>
+                </div>
+            </section>
+             
+             <!-- SETTINGS SECTION -->
+             <section id="settings">
+                 <header><h1>Settings</h1></header>
+                 <div class="card">
+                     <p>System configuration goes here.</p>
+                 </div>
+             </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
